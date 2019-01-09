@@ -28,19 +28,27 @@
     }
 
     class Action extends React.Component {
+        handlePick() {
+            alert('handlePick');
+        }
+        
         render(){
             return(
                 <div>
-                    <button>What should I do?</button>
+                    <button onClick={this.handlePick}>What should I do?</button>
                 </div>
             );
         }
     }
 
     class Options extends React.Component {
+        handleRemoveAll() {
+            alert('RemoveAll!');
+        }
         render(){
             return(
                 <div>  
+                <button onClick={this.handleRemoveAll}>Remove All</button>
                 {
                     this.props.options.map((option) => <Option key={option} optionText={option} />)
                 }
@@ -60,11 +68,22 @@
     }
 
     class AddOption extends React.Component {
+        handleAddOption(event){
+            //prevents default form submission process -> prevents full page refresh
+            event.preventDefault();
+
+            //target = form element; we are going to go into its elements where we can fetch them by their name
+            const option = event.target.elements.option.value.trim();
+
+            if(option){
+                alert(option);
+            }
+        }
         render(){
             return(
                 <div>
-                    <form>
-                        <input type="text"/>
+                    <form onSubmit={this.handleAddOption}>
+                        <input type="text" name="option" />
                         <button>Add options</button>
                     </form>
                 </div>
