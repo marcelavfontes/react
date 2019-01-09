@@ -42,8 +42,17 @@
     }
 
     class Options extends React.Component {
+        //Bind in constructor to avoid rebinding in every render 
+        //(could just call .bind(this) when calling hadleRemoveAll in render)
+        constructor(props){
+            super(props);
+            //since constructor is not an event callback its context is correct, so we simply pass this
+            this.handleRemoveAll = this.handleRemoveAll.bind(this);
+        }
+
+        //looses the context of props used in render. So we need to bind it.
         handleRemoveAll() {
-            alert('RemoveAll!');
+            console.log(this.props.options);
         }
         render(){
             return(
